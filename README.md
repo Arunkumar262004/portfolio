@@ -33,4 +33,4 @@ service like [EmailJS](https://www.emailjs.com/) or [Formspree](https://formspre
 
 All résumé content (profile, experience, projects, skills, education) lives in
 [`src/data/resume.js`](src/data/resume.js) — edit that file to update the site without touching components.
-The résumé PDF offered for download is [`public/Arun_Kumar_R_Resume.pdf`](public/Arun_Kumar_R_Resume.pdf).
+The résumé PDF offered for download is [`public/Arun_Kumar_R.pdf`](public/Arun_Kumar_R.pdf).

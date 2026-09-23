@@ -575,6 +575,17 @@
     left: auto;
     right: 0;
   }
+  /* smaller orbit: park the badges in the empty corners, clear of the photo */
+  .hero__chip--ai {
+    top: 0;
+    right: auto;
+    left: -2%;
+  }
+  .hero__chip--api {
+    top: auto;
+    bottom: 0;
+    right: -2%;
+  }
 }
 
 @media (max-width: 640px) {
@@ -584,8 +595,16 @@
   .orbit__chip {
     border-radius: 12px;
   }
+  .hero__chip {
+    padding: 6px 10px;
+    font-size: 0.72rem;
+    gap: 6px;
+  }
+  .hero__chip--ai {
+    left: 0;
+  }
   .hero__chip--api {
-    right: -2%;
+    right: 0;
   }
   .hero__terminal {
     position: relative;

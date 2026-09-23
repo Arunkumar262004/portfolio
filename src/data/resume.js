@@ -13,7 +13,7 @@ export const profile = {
   linkedinLabel: 'linkedin.com/in/arun-kumar-47909930a',
   github: 'https://github.com/Arunkumar262004',
   githubLabel: 'github.com/Arunkumar262004',
-  resumeFile: '/Arun_Kumar_R_Resume.pdf',
+  resumeFile: '/Arun_Kumar_R.pdf',
   heroIntro:
     'I build scalable backend systems and full-stack web apps. With 2.6+ years of experience, I enjoy turning ideas into reliable, production-ready products.',
   summary:
