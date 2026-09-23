@@ -1,0 +1,129 @@
+.project-thumb {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+}
+
+.project-thumb--md {
+  height: 180px;
+}
+
+.project-thumb--lg {
+  height: 280px;
+}
+
+.project-thumb__bar {
+  height: 26px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 12px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.project-thumb__bar span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border);
+}
+
+.project-thumb__body {
+  height: calc(100% - 26px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: linear-gradient(135deg, var(--accent-soft), transparent 70%);
+}
+
+.project-thumb__monogram {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-thumb__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 60%;
+}
+
+.project-thumb__line {
+  height: 8px;
+  border-radius: 100px;
+  background: var(--border);
+}
+
+.project-thumb__line--w60 {
+  width: 60%;
+}
+.project-thumb__line--w40 {
+  width: 40%;
+}
+.project-thumb__line--w70 {
+  width: 70%;
+}
+
+.project-thumb--photo {
+  position: relative;
+}
+
+.project-thumb--photo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.project-thumb--photo.project-thumb--browser img {
+  object-fit: cover;
+  object-position: top;
+}
+
+.project-thumb--photo.project-thumb--phone {
+  background: linear-gradient(135deg, var(--accent-soft), transparent 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-thumb--photo.project-thumb--phone img {
+  height: 92%;
+  width: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+}
+
+.project-thumb--strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 16px 10px;
+  background: linear-gradient(135deg, var(--accent-soft), transparent 70%);
+}
+
+.project-thumb--strip img {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  background: var(--surface);
+}

@@ -1,0 +1,98 @@
+.project-tabs {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.project-tab {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 9px 18px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.project-tab:hover {
+  color: var(--text);
+}
+
+.project-tab--active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.projects-grid {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.project-card {
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.project-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+}
+
+.project-card__name {
+  margin-top: 18px;
+  font-size: 1.2rem;
+}
+
+.project-card__desc {
+  margin-top: 10px;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+  flex: 1;
+}
+
+.project-card__stack {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.project-card__link {
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+}
+
+.project-card__link:hover {
+  color: var(--accent-ink);
+}
+
+@media (max-width: 780px) {
+  .projects-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

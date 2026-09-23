@@ -1,0 +1,102 @@
+.project-page {
+  padding-top: 32px;
+  border-top: 0;
+}
+
+.project-detail {
+  margin-top: 0;
+}
+
+.project-detail__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+.project-detail__back:hover {
+  color: var(--accent);
+}
+
+.project-detail__top {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: center;
+}
+
+.project-detail__info h3 {
+  font-size: 1.7rem;
+}
+
+.project-detail__tagline {
+  margin-top: 8px;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.project-detail__desc {
+  margin-top: 16px;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.project-detail__stack {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.project-detail__github {
+  margin-top: 24px;
+}
+
+.project-detail__grid {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 32px;
+}
+
+.project-detail__grid h4 {
+  font-size: 1.05rem;
+}
+
+.project-detail__list {
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.project-detail__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+}
+
+.project-detail__check {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: var(--success);
+}
+
+@media (max-width: 780px) {
+  .project-detail__top,
+  .project-detail__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
