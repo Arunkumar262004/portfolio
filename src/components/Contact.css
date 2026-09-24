@@ -90,6 +90,17 @@
   border-color: var(--accent);
 }
 
+.field input[aria-invalid='true'],
+.field textarea[aria-invalid='true'] {
+  border-color: var(--warning);
+}
+
+.field__error {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--warning);
+}
+
 .contact-form__footer {
   display: flex;
   align-items: center;

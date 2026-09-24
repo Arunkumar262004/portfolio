@@ -1,47 +1,74 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { profile } from '../data/resume'
 import { IconMail, IconPhone, IconLocation, IconArrowRight } from './Icons'
-import { openGmailCompose, gmailComposeHref } from '../utils/mail'
+import { gmailComposeHref } from '../utils/mail'
 import { sendEnquiryEmail, isEmailjsConfigured } from '../utils/emailjs'
 import Reveal from './Reveal'
 import './Contact.css'
 
 const EMPTY = { name: '', company: '', email: '', message: '' }
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+
+function validate({ name, email, message }) {
+  const errors = {}
+  if (!name) errors.name = 'Please enter your name.'
+  if (!email) errors.email = 'Please enter your email.'
+  else if (!EMAIL_PATTERN.test(email)) errors.email = 'Please enter a valid email address.'
+  if (!message) errors.message = 'Please enter a message.'
+  else if (message.length < 10) errors.message = 'Message should be at least 10 characters.'
+  return errors
+}
 
 export default function Contact() {
   const [form, setForm] = useState(EMPTY)
+  const [errors, setErrors] = useState({})
   const [status, setStatus] = useState('idle') // idle | sending | sent | error
+  const sendingRef = useRef(false)
 
-  const update = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }))
+  const update = (field) => (e) => {
+    const { value } = e.target
+    setForm((f) => ({ ...f, [field]: value }))
+    setErrors((errs) => (errs[field] ? { ...errs, [field]: undefined } : errs))
+    setStatus((s) => (s === 'sent' || s === 'error' ? 'idle' : s))
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    // The ref blocks a second submit before React has re-rendered the disabled button.
+    if (sendingRef.current) return
 
-    if (!isEmailjsConfigured()) {
-      const subject = `Portfolio enquiry from ${form.name}${form.company ? ` (${form.company})` : ''}`
-      const body = [
-        `Name: ${form.name}`,
-        form.company && `Company: ${form.company}`,
-        `Reply-to email: ${form.email}`,
-        '',
-        form.message,
-      ]
-        .filter(Boolean)
-        .join('\n')
-
-      openGmailCompose({ to: profile.email, subject, body })
-      setStatus('sent')
+    const trimmed = {
+      name: form.name.trim(),
+      company: form.company.trim(),
+      email: form.email.trim(),
+      message: form.message.trim(),
+    }
+    const found = validate(trimmed)
+    setErrors(found)
+    if (Object.keys(found).length > 0) {
+      e.currentTarget.querySelector(`[name="${Object.keys(found)[0]}"]`)?.focus()
       return
     }
 
+    if (!isEmailjsConfigured()) {
+      console.error(
+        'EmailJS is not configured: set VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID and VITE_EMAILJS_PUBLIC_KEY.',
+      )
+      setStatus('error')
+      return
+    }
+
+    sendingRef.current = true
     setStatus('sending')
     try {
-      await sendEnquiryEmail(form)
+      await sendEnquiryEmail(trimmed)
       setStatus('sent')
       setForm(EMPTY)
     } catch (err) {
       console.error('EmailJS send failed:', err)
       setStatus('error')
+    } finally {
+      sendingRef.current = false
     }
   }
 
@@ -85,16 +112,19 @@ export default function Contact() {
             </div>
           </Reveal>
 
-          <Reveal as="form" className="contact-form" delay={90} onSubmit={handleSubmit}>
+          <Reveal as="form" className="contact-form" delay={90} onSubmit={handleSubmit} noValidate>
             <label className="field">
               <span>Name</span>
               <input
                 type="text"
                 required
                 value={form.name}
+                name="name"
                 onChange={update('name')}
+                aria-invalid={Boolean(errors.name)}
                 placeholder="Your name"
               />
+              {errors.name && <span className="field__error">{errors.name}</span>}
             </label>
 
             <label className="field">
@@ -102,6 +132,7 @@ export default function Contact() {
               <input
                 type="text"
                 value={form.company}
+                name="company"
                 onChange={update('company')}
                 placeholder="Company (optional)"
               />
@@ -113,9 +144,12 @@ export default function Contact() {
                 type="email"
                 required
                 value={form.email}
+                name="email"
                 onChange={update('email')}
+                aria-invalid={Boolean(errors.email)}
                 placeholder="Your email"
               />
+              {errors.email && <span className="field__error">{errors.email}</span>}
             </label>
 
             <label className="field">
@@ -124,13 +158,21 @@ export default function Contact() {
                 required
                 rows={4}
                 value={form.message}
+                name="message"
                 onChange={update('message')}
+                aria-invalid={Boolean(errors.message)}
                 placeholder="Your message"
               />
+              {errors.message && <span className="field__error">{errors.message}</span>}
             </label>
 
-            <div className="contact-form__footer">
-              <button type="submit" className="btn btn--primary" disabled={status === 'sending'}>
+            <div className="contact-form__footer" aria-live="polite">
+              <button
+                type="submit"
+                className="btn btn--primary"
+                disabled={status === 'sending'}
+                aria-busy={status === 'sending'}
+              >
                 {status === 'sending' ? 'Sending…' : 'Send Message'}
                 <IconArrowRight />
               </button>
